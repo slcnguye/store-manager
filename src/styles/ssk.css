@@ -1,0 +1,51 @@
+/*Sang's Style Kit*/
+
+body {
+  height: calc(100vh - 16px);
+  background-color: #f2f2f2;
+  margin: 0;
+}
+
+* {
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+}
+
+.text-small {
+  font-size: 13px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-muted {
+  color: #909399;
+}
+
+.text-link {
+  color: #409EFF;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.padding-left {
+  padding-left: 10px;
+}
+
+.padding-top {
+  padding-top: 10px;
+}
+
+.padding-right {
+  padding-right: 10px;
+}
+
+.padding-bottom {
+  padding-bottom: 10px;
+}
+
+.padding {
+  padding: 10px;
+}
