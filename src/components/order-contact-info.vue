@@ -2,7 +2,7 @@
   <div class="order-contact-info">
     <div class="contact-info pointer" @click="dialogFormVisible = true">
       <i class="fa fa-user-o fa-lg padding-right text-muted"></i>
-      <span class="text-link">Contact Info</span>
+      <span class="text-link">Alexia Smith</span>
     </div>
 
     <el-dialog title="Contact Info" :visible.sync="dialogFormVisible">

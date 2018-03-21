@@ -22,7 +22,7 @@ import OrderSummary from './order-summary.vue'
 import OrderContactInfo from './order-contact-info.vue'
 
 export default {
-  name: 'Order',
+  name: 'order',
   components: {
     OrderContactInfo,
     OrderItems,

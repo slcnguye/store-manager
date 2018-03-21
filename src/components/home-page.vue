@@ -12,8 +12,6 @@
         </el-menu>
       </el-header>
       <el-main>
-        <div>{{ count }}</div>
-        <el-button type="primary" @click="incrementCount">Primary</el-button>
       </el-main>
     </el-container>
   </div>
@@ -28,22 +26,10 @@ export default {
       msg: 'Welcome to Your Vue.js App'
     }
   },
-  computed: {
-    count () {
-      return this.$store.state.counter
-    }
-  },
   methods: {
     handleSelect (key, keyPath) {
       console.log(key, keyPath)
-    },
-    incrementCount () {
-      this.$store.dispatch('incrementCounter')
     }
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-</style>
