@@ -2,14 +2,14 @@
   <div class="order-summary">
     <div class="item-details">
       <div v-for="itemDetail in orderSummary" :key="itemDetail.id" class="item-detail">
-        <order-summary-item-detail :item-detail="itemDetail"></order-summary-item-detail>
+        <order-summary-item-detail :item-detail="itemDetail" class="padding"></order-summary-item-detail>
       </div>
     </div>
     <hr>
     <div>
-      <order-summary-price-detail class="price-detail" :price="subTotal" :name="'SubTotal'"></order-summary-price-detail>
-      <order-summary-price-detail class="price-detail" :price="taxTotal" :name="'Tax (HST)'"></order-summary-price-detail>
-      <order-summary-price-detail class="price-detail" :price="total" :name="'Total'"></order-summary-price-detail>
+      <order-summary-price-detail class="price-detail padding" :price="subTotal" :name="'SubTotal'"></order-summary-price-detail>
+      <order-summary-price-detail class="price-detail padding" :price="taxTotal" :name="'Tax (HST)'"></order-summary-price-detail>
+      <order-summary-price-detail class="price-detail padding" :price="total" :name="'Total'"></order-summary-price-detail>
     </div>
     <el-row class="padding">
       <el-col :span="19">

@@ -14,6 +14,10 @@ body {
   font-size: 13px;
 }
 
+.text-medium {
+  font-size: 16px;
+}
+
 .text-center {
   text-align: center;
 }
@@ -24,6 +28,10 @@ body {
 
 .text-link {
   color: #409EFF;
+}
+
+.pull-right {
+  float: right;
 }
 
 .pointer {

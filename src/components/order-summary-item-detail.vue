@@ -1,5 +1,5 @@
 <template>
-  <div class="order-summary-item-detail padding">
+  <div class="order-summary-item-detail">
     <strong>{{itemDetail.quantity}}</strong>
     <span class="item-name">{{itemDetail.name}}</span>
     <strong>{{itemDetail.price | currency}}</strong>
