@@ -2,11 +2,12 @@
   <div class="order-contact-info">
     <div class="contact-info pointer" @click="dialogFormVisible = true">
       <i class="fa fa-user-o fa-lg padding-right text-muted"></i>
-      <span class="text-link">Alexia Smith</span>
+      <span class="text-link" v-if="!currentPhoneNumber">Enter Client Number</span>
+      <span class="text-link" v-else>{{ currentPhoneNumber | toPhoneNumber }}</span>
     </div>
 
     <el-dialog title="Contact Info" :visible.sync="dialogFormVisible">
-      <div class="text-extra-large padding-bottom"> {{ number | toPhoneNumber }} </div>
+      <div class="text-center text-extra-large padding-bottom" v-if="number"> {{ number | toPhoneNumber }} </div>
       <div class="text-center padding-bottom">
         <el-button class="number-button" @click="addDigit(1)">1</el-button>
         <el-button class="number-button" @click="addDigit(2)">2</el-button>
@@ -27,7 +28,7 @@
           <i class="fa fa-undo fa-lg"></i>
         </el-button>
         <el-button class="number-button" @click="addDigit(0)">0</el-button>
-        <el-button type="success" plain round class="number-button" @click="dialogFormVisible = false">
+        <el-button type="success" plain round class="number-button" :disabled="!validPhoneNumber" @click="saveNumber">
           <i class="fa fa-check fa-lg"></i>
         </el-button>
       </div>
@@ -36,23 +37,36 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 
 export default {
   name: 'order-contact-info',
   data: function () {
     return {
       dialogFormVisible: false,
-      number: ''
+      number: null
     }
+  },
+  computed: {
+    validPhoneNumber () {
+      return this.number && this.number.length === 10
+    },
+    ...mapState(['currentPhoneNumber'])
   },
   methods: {
     addDigit (digit) {
-      if (this.number.length < 10) {
+      if (!this.number) {
+        this.number = '' + digit
+      } else if (this.number.length < 10) {
         this.number += digit
       }
     },
     revertDigit () {
       this.number = this.number.slice(0, -1)
+    },
+    saveNumber () {
+      this.$store.dispatch('setPhoneNumber', this.number)
+      this.dialogFormVisible = false
     }
   }
 }

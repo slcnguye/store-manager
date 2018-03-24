@@ -6,6 +6,9 @@
  * @return {String} formatted phone
  */
 export default function (phone) {
+  if (!phone || phone.length === 0) {
+    return phone
+  }
   // return phone.replace(/[^0-9]/g, '').replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3')
   // Strip all characters from the input except digits
   let formattedPhone = phone.replace(/\D/g, '')

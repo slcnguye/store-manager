@@ -7,6 +7,7 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
   state: {
     currentOrder: [],
+    currentPhoneNumber: null,
     currentCategory: 0,
     items: [
       {id: 1, name: 'Storage w/ glass door', price: 610.00, color: '#D83AFF', categoryId: 1},
@@ -249,9 +250,11 @@ export const store = new Vuex.Store({
         orderSummary
       })
       state.currentOrder = []
+      state.currentPhoneNumber = null
     },
     clearOrder (state) {
       state.currentOrder = []
+      state.currentPhoneNumber = null
     },
     setCategory (state, categoryId) {
       const category = state.categories.find((category) => {
@@ -260,6 +263,9 @@ export const store = new Vuex.Store({
       if (category) {
         state.currentCategory = categoryId
       }
+    },
+    setPhoneNumber (state, phoneNumber) {
+      state.currentPhoneNumber = phoneNumber
     }
   },
   actions: {
@@ -274,6 +280,9 @@ export const store = new Vuex.Store({
     },
     setCategory ({ commit }, categoryId) {
       return Promise.resolve(commit('setCategory', categoryId))
+    },
+    setPhoneNumber ({ commit }, phoneNumber) {
+      return Promise.resolve(commit('setPhoneNumber', phoneNumber))
     }
   }
 })
