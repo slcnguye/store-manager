@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueCurrencyFilter from 'vue-currency-filter'
+import PhoneNumberFilter from './phone-number.filter'
 
 Vue.use(VueCurrencyFilter,
   {
@@ -11,3 +12,4 @@ Vue.use(VueCurrencyFilter,
     symbolSpacing: false
   }
 )
+Vue.filter('toPhoneNumber', PhoneNumberFilter)

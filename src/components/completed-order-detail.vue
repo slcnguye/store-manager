@@ -7,10 +7,11 @@
           <span v-if="isCollapsed" class="text-medium pull-right padding-right"> {{ total | currency }} </span>
         </template>
         <div class="padding-left text-medium">
+          <div class="client-number"> {{ orderDetail.client.number | toPhoneNumber }}</div>
           <el-row style="display: flex;">
             <el-col :span="12" class="padding-left padding-right">
-              <div v-for="orderItemSummary in orderDetail.orderSummary" :key="orderItemSummary.id" class="order-summary-item">
-                <order-summary-item-detail :item-detail="orderItemSummary"></order-summary-item-detail>
+              <div v-for="itemDetail in orderDetail.items" :key="itemDetail.id" class="order-summary-item">
+                <order-summary-item-detail :item-detail="itemDetail"></order-summary-item-detail>
               </div>
             </el-col>
             <el-col :span="12" class="total-summary-section padding-left padding-right" style="flex: 1;">
@@ -45,7 +46,7 @@ export default {
   computed: {
     subTotal () {
       let total = 0
-      this.orderDetail.orderSummary.forEach((orderItem) => {
+      this.orderDetail.items.forEach((orderItem) => {
         total += orderItem.quantity * orderItem.price
       })
       return total
@@ -75,5 +76,9 @@ export default {
 
   .total-summary-section {
     border-left: 1px solid #DCDFE6;
+  }
+
+  .client-number {
+    border-bottom: 1px solid #DCDFE6;
   }
 </style>

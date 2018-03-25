@@ -77,7 +77,7 @@ export default {
   }
 
   .item-details {
-    overflow-y: scroll;
+    overflow-y: auto;
     flex: 1;
   }
 
