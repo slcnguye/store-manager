@@ -66,6 +66,7 @@ export default {
     },
     saveNumber () {
       this.$store.dispatch('setPhoneNumber', this.number)
+      this.number = null
       this.dialogFormVisible = false
     }
   }

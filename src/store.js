@@ -35,7 +35,8 @@ export const store = new Vuex.Store({
       {
         'id': 0,
         'timestamp': '2018-03-20T09:18:42-04:00',
-        'orderSummary': [
+        'client': {'number': '6478597654'},
+        'items': [
           {
             'id': 1,
             'name': 'Storage w/ glass door',
@@ -81,7 +82,8 @@ export const store = new Vuex.Store({
       {
         'id': 1,
         'timestamp': '2018-03-20T11:00:47-04:00',
-        'orderSummary': [
+        'client': {},
+        'items': [
           {
             'id': 7,
             'name': 'Sectional sofa',
@@ -119,7 +121,8 @@ export const store = new Vuex.Store({
       {
         'id': 2,
         'timestamp': '2018-03-20T22:40:50-04:00',
-        'orderSummary': [
+        'client': {},
+        'items': [
           {
             'id': 13,
             'name': 'Storage table',
@@ -133,7 +136,8 @@ export const store = new Vuex.Store({
       {
         'id': 3,
         'timestamp': '2018-03-21T05:38:53-04:00',
-        'orderSummary': [
+        'client': {},
+        'items': [
           {
             'id': 9,
             'name': 'Floor lamp',
@@ -155,7 +159,8 @@ export const store = new Vuex.Store({
       {
         'id': 4,
         'timestamp': '2018-03-21T06:05:58-04:00',
-        'orderSummary': [
+        'client': {},
+        'items': [
           {
             'id': 8,
             'name': 'Table lamp',
@@ -193,7 +198,8 @@ export const store = new Vuex.Store({
       {
         'id': 5,
         'timestamp': '2018-03-22T18:43:00-04:00',
-        'orderSummary': [
+        'client': {},
+        'items': [
           {
             'id': 1,
             'name': 'Storage w/ glass door',
@@ -247,7 +253,10 @@ export const store = new Vuex.Store({
       state.completedOrders.push({
         id: state.completedOrders.length,
         timestamp: moment().format(),
-        orderSummary
+        items: orderSummary,
+        client: {
+          number: state.currentPhoneNumber
+        }
       })
       state.currentOrder = []
       state.currentPhoneNumber = null
