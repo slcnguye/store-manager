@@ -3,17 +3,10 @@
     <el-container>
       <el-main>
         <template>
-          <el-table
-            :data="links"
-            stripe
-            style="width: 100%">
-            <el-table-column
-              prop="name"
-              label="Name"
-              width="180">
+          <el-table :data="links" stripe style="width: 100%">
+            <el-table-column prop="name" label="Name" width="180">
             </el-table-column>
-            <el-table-column
-              label="Link">
+            <el-table-column label="Link">
               <template slot-scope="scope">
                 <a target="_blank" :href="scope.row.url">{{scope.row.url}}</a>
               </template>
