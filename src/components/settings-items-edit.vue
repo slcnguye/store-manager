@@ -2,28 +2,27 @@
   <div class="settings-items-edit">
     <el-container>
       <el-main>
-        edit mode for item {{id}}
-        <!-- {{itemDetail.name}} -->
-        {{itemDetail.price}}
-        {{itemDetail.categoryId}}
-        <el-form class="item-form" :model="form" ref="numberValidateForm" label-width="100px">
-          <el-form-item label="Activity name">
-            <el-input v-model="form.name"></el-input>
+        <h2 v-if="itemDetail.id">Edit Item</h2>
+        <h2 v-else>Create Item</h2>
+
+        <el-form class="item-form" :model="form" ref="form" label-width="100px">
+          <el-form-item label="Name" prop="name"
+            :rules="[{ required: true, message: 'Name is required'}]">
+            <el-input v-model="form.name" maxlength="30"></el-input>
           </el-form-item>
-          <el-form-item label="Activity zone">
-            <el-select v-model="form.region" placeholder="please select your zone">
-              <el-option label="Zone one" value="shanghai"></el-option>
-              <el-option label="Zone two" value="beijing"></el-option>
+          <el-form-item label="Price" prop="price"
+            :rules="[{ required: true, message: 'Price is required'},
+                     { type: 'number', message: 'Price must be a number'}]">
+            <el-input type="number" v-model.number="form.price" auto-complete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="Category" prop="category">
+            <el-select clearable v-model="form.category">
+              <el-option v-for="category in selectableCategories" :key="category.id" :label="category.name" :value="category.id"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="age" prop="age"
-            :rules="[{ required: true, message: 'age is required'},
-                     { type: 'number', message: 'age must be a number'}]">
-            <el-input type="age" v-model.number="form.age" auto-complete="off"></el-input>
-          </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm('form')">Submit</el-button>
-            <el-button @click="resetForm('form')">Reset</el-button>
+            <el-button type="success" @click="submitForm('form')">Submit</el-button>
+            <el-button @click="cancel('form')">Cancel</el-button>
           </el-form-item>
         </el-form>
       </el-main>
@@ -41,10 +40,15 @@ export default {
     return {
       form: {
         name: null,
-        region: null,
-        age: ''
+        category: null,
+        price: null
       }
     }
+  },
+  mounted() {
+    this.form.name = this.itemDetail.name;
+    this.form.price = this.itemDetail.price;
+    this.form.category = this.itemDetail.categoryId;
   },
   computed: {
     itemDetail () {
@@ -55,21 +59,25 @@ export default {
       })
       return item
     },
-    ...mapState(['items'])
+    selectableCategories () {
+      return this.categories.filter((category) => {
+        return category.id !== 0;
+      })
+    },
+    ...mapState(['items', 'categories'])
   },
   methods: {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!')
-        } else {
-          console.log('error submit!!')
-          return false
+          
         }
+        return valid
       })
     },
-    resetForm (formName) {
+    cancel (formName) {
       this.$refs[formName].resetFields()
+      this.$router.go(-1)
     }
   }
 }

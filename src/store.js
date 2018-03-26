@@ -249,6 +249,23 @@ export const store = new Vuex.Store({
         state.currentOrder.push(itemId)
       }
     },
+    saveItemUpdate (state, updatedItem) {
+      const item = state.items.find((item) => {
+        return item.id === itemId
+      })
+      if (item) {
+        state.currentOrder.push(itemId)
+      }
+    },
+    saveItemNew (state, newItem) {
+      newItem.id =
+      const item = state.items.find((item) => {
+        return item.id === itemId
+      })
+      if (item) {
+        state.currentOrder.push(itemId)
+      }
+    },
     checkoutOrder (state, orderSummary) {
       state.completedOrders.push({
         id: state.completedOrders.length,
