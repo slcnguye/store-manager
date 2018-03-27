@@ -38,6 +38,11 @@ export default new Router({
       props: true
     },
     {
+      path: '/settings-item-edit',
+      name: 'settings-item-create',
+      component: SettingsItemsEdit
+    },
+    {
       path: '/documentation',
       name: 'documentation',
       component: Documentation

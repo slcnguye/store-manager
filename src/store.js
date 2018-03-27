@@ -10,19 +10,18 @@ export const store = new Vuex.Store({
     currentPhoneNumber: null,
     currentCategory: 0,
     items: [
-      {id: 1, name: 'Storage w/ glass door', price: 610.00, color: '#D83AFF', categoryId: 1},
-      {id: 2, name: 'TV bench', price: 105.00, color: '#D83AFF', categoryId: 1},
-      {id: 3, name: 'TV unit w/ drawers', price: 195.00, color: '#D83AFF', categoryId: 1},
-      {id: 4, name: 'Ottoman', price: 450.00, color: '#67C23A', categoryId: 3},
-      {id: 5, name: 'Sofa bed', price: 795.00, color: '#67C23A', categoryId: 3},
-      {id: 6, name: 'Cushions', price: 45.00, color: '#67C23A', categoryId: 3},
-      {id: 7, name: 'Sectional sofa', price: 1050.00, color: '#67C23A', categoryId: 3},
-      {id: 8, name: 'Table lamp', price: 55.00, color: '#FF613A', categoryId: 4},
-      {id: 9, name: 'Floor lamp', price: 35.00, color: '#FF613A', categoryId: 4},
-      // {id: 10, name: 'name', price: 7.00, color: null},
-      {id: 11, name: 'Coffee table', price: 115.00, color: '#3cfff8', categoryId: 5},
-      {id: 12, name: 'Side table', price: 15.00, color: '#3cfff8', categoryId: 5},
-      {id: 13, name: 'Storage table', price: 99.00, color: '#3cfff8', categoryId: 5}
+      {id: 1, name: 'Storage w/ glass door', price: 610.00, categoryId: 1},
+      {id: 2, name: 'TV bench', price: 105.00, categoryId: 1},
+      {id: 3, name: 'TV unit w/ drawers', price: 195.00, categoryId: 1},
+      {id: 4, name: 'Ottoman', price: 450.00, categoryId: 3},
+      {id: 5, name: 'Sofa bed', price: 795.00, categoryId: 3},
+      {id: 6, name: 'Cushions', price: 45.00, categoryId: 3},
+      {id: 7, name: 'Sectional sofa', price: 1050.00, categoryId: 3},
+      {id: 8, name: 'Table lamp', price: 55.00, categoryId: 4},
+      {id: 9, name: 'Floor lamp', price: 35.00, categoryId: 4},
+      {id: 10, name: 'Coffee table', price: 115.00, categoryId: 5},
+      {id: 11, name: 'Side table', price: 15.00, categoryId: 5},
+      {id: 12, name: 'Storage table', price: 99.00, categoryId: 5}
     ],
     categories: [
       {id: 0, name: 'All', color: '#e1ff0f'},
@@ -250,21 +249,19 @@ export const store = new Vuex.Store({
       }
     },
     saveItemUpdate (state, updatedItem) {
-      const item = state.items.find((item) => {
-        return item.id === itemId
+      const itemIndex = state.items.findIndex((item) => {
+        return item.id === updatedItem.id
       })
-      if (item) {
-        state.currentOrder.push(itemId)
+      if (itemIndex >= 0) {
+        state.items[itemIndex] = updatedItem
       }
     },
     saveItemNew (state, newItem) {
-      newItem.id =
-      const item = state.items.find((item) => {
-        return item.id === itemId
+      const maxId = state.items.reduce((maxId, id) => {
+        return maxId > id ? maxId : id
       })
-      if (item) {
-        state.currentOrder.push(itemId)
-      }
+      newItem.id = maxId + 1
+      state.items.push(newItem)
     },
     checkoutOrder (state, orderSummary) {
       state.completedOrders.push({
@@ -309,6 +306,12 @@ export const store = new Vuex.Store({
     },
     setPhoneNumber ({ commit }, phoneNumber) {
       return Promise.resolve(commit('setPhoneNumber', phoneNumber))
+    },
+    saveItemUpdate ({ commit }, updatedItem) {
+      return Promise.resolve(commit('saveItemUpdate', updatedItem))
+    },
+    saveItemNew ({ commit }, newItem) {
+      return Promise.resolve(commit('saveItemNew', newItem))
     }
   }
 })

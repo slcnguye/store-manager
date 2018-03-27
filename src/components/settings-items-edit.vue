@@ -2,7 +2,7 @@
   <div class="settings-items-edit">
     <el-container>
       <el-main>
-        <h2 v-if="itemDetail.id">Edit Item</h2>
+        <h2 v-if="itemDetail && itemDetail.id">Edit Item</h2>
         <h2 v-else>Create Item</h2>
 
         <el-form class="item-form" :model="form" ref="form" label-width="100px">
@@ -15,8 +15,8 @@
                      { type: 'number', message: 'Price must be a number'}]">
             <el-input type="number" v-model.number="form.price" auto-complete="off"></el-input>
           </el-form-item>
-          <el-form-item label="Category" prop="category">
-            <el-select clearable v-model="form.category">
+          <el-form-item label="Category" prop="categoryId">
+            <el-select clearable v-model="form.categoryId">
               <el-option v-for="category in selectableCategories" :key="category.id" :label="category.name" :value="category.id"></el-option>
             </el-select>
           </el-form-item>
@@ -40,15 +40,18 @@ export default {
     return {
       form: {
         name: null,
-        category: null,
+        categoryId: null,
         price: null
       }
     }
   },
-  mounted() {
-    this.form.name = this.itemDetail.name;
-    this.form.price = this.itemDetail.price;
-    this.form.category = this.itemDetail.categoryId;
+  mounted: function () {
+    if (this.itemDetail) {
+      this.form.id = this.itemDetail.id
+      this.form.name = this.itemDetail.name
+      this.form.price = this.itemDetail.price
+      this.form.categoryId = this.itemDetail.categoryId
+    }
   },
   computed: {
     itemDetail () {
@@ -61,7 +64,7 @@ export default {
     },
     selectableCategories () {
       return this.categories.filter((category) => {
-        return category.id !== 0;
+        return category.id !== 0
       })
     },
     ...mapState(['items', 'categories'])
@@ -70,7 +73,12 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          
+          if (this.form.id) {
+            this.$store.dispatch('saveItemUpdate', this.form)
+          } else {
+            this.$store.dispatch('saveItemNew', this.form)
+          }
+          this.$router.go(-1)
         }
         return valid
       })

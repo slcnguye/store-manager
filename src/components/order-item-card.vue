@@ -1,16 +1,28 @@
 <template>
   <div class="order-item-card" @click="addOrderItem(item)">
-    <el-card :body-style="{padding: '10px'}" :style="{ 'border-top': '5px solid ' + item.color }">
-      <!--<img src="https://image.flaticon.com/icons/png/512/26/26476.png" class="item-image">-->
+    <el-card :body-style="{padding: '10px'}" :style="{ 'border-top': '5px solid ' + categoryColor }">
+      <!-- <img src="https://image.flaticon.com/icons/png/512/26/26476.png" class="item-image"> -->
       <div class="item-name">{{item.name}}</div>
     </el-card>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'order-item-card',
   props: ['item'],
+  computed: {
+    categoryColor () {
+      const category = this.categories.find((category) => {
+        return category.id === this.item.categoryId
+      })
+
+      return category.color || null
+    },
+    ...mapState(['categories'])
+  },
   methods: {
     addOrderItem (item) {
       this.$store.dispatch('addToOrder', item.id)
