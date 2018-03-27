@@ -30,8 +30,18 @@ npm test
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
 ## TODOs
-create orders page
+settings for categories and items
+
+modify order summaries: remove item, change price
+
+add history table for settings (type, id, previous value, current value, timestamp)
+
+change completed orders to copy data
+
+add authentication
 
 create clients page
 
-add new clients on order page
+public site
+
+analytics
