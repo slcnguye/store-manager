@@ -32,13 +32,13 @@ export default {
     decrementQuantity () {
       this.$store.dispatch('removeFromOrder', {id: this.itemDetail.id, quantity: 1})
         .then(() => {
-          this.toggleExpanded ()
+          this.toggleExpanded()
         })
     },
     removeItemDetail () {
       this.$store.dispatch('removeFromOrder', {id: this.itemDetail.id, quantity: this.itemDetail.quantity})
         .then(() => {
-          this.toggleExpanded ()
+          this.toggleExpanded()
         })
     }
   }

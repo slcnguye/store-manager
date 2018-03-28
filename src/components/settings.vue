@@ -6,9 +6,9 @@
           <el-tab-pane label="Items" :name="tabs.items">
             <settings-items-list></settings-items-list>
           </el-tab-pane>
-          <!-- <el-tab-pane label="Categories" :name="tabs.categories">
+          <el-tab-pane label="Categories" :name="tabs.categories">
             <settings-categories-list></settings-categories-list>
-          </el-tab-pane> -->
+          </el-tab-pane>
         </el-tabs>
       </el-main>
     </el-container>
