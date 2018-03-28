@@ -248,6 +248,16 @@ export const store = new Vuex.Store({
         state.currentOrder.push(itemId)
       }
     },
+    removeFromOrder (state, itemDetail) {
+      for (let i = 0; i < itemDetail.quantity; i++) {
+        const itemIndex = state.currentOrder.lastIndexOf(itemDetail.id)
+        if (itemIndex < 0) {
+          break
+        }
+
+        state.currentOrder.splice(itemIndex, 1)
+      }
+    },
     saveItemUpdate (state, updatedItem) {
       const itemIndex = state.items.findIndex((item) => {
         return item.id === updatedItem.id
@@ -294,6 +304,9 @@ export const store = new Vuex.Store({
   actions: {
     addToOrder ({ commit }, itemId) {
       return Promise.resolve(commit('addToOrder', itemId))
+    },
+    removeFromOrder ({ commit }, itemDetail) {
+      return Promise.resolve(commit('removeFromOrder', itemDetail))
     },
     checkoutOrder ({ commit, getters }) {
       return Promise.resolve(commit('checkoutOrder', getters.orderSummary))

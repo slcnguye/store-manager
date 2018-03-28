@@ -30,7 +30,8 @@ export default {
         {name: 'Element UI', url: 'http://element.eleme.io/#/en-US/component/layout'},
         {name: 'Awesome Vue', url: 'https://github.com/vuejs/awesome-vue#ui-components'},
         {name: 'Vuex', url: 'https://vuex.vuejs.org/en/installation.html'},
-        {name: 'Build a MEVN', url: 'https://medium.com/@anaida07/mevn-stack-application-part-1-3a27b61dcae0'}
+        {name: 'Build a MEVN', url: 'https://medium.com/@anaida07/mevn-stack-application-part-1-3a27b61dcae0'},
+        {name: 'Font awesome', url: 'https://fontawesome.com/v4.7.0/icons/'}
       ]
     }
   }
