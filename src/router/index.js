@@ -6,6 +6,7 @@ import Order from '@/components/order'
 import CompletedOrders from '@/components/completed-orders'
 import Settings from '@/components/settings'
 import SettingsItemsEdit from '@/components/settings-items-edit'
+import SettingsCategoriessEdit from '@/components/settings-categories-edit'
 
 Vue.use(Router)
 
@@ -41,6 +42,17 @@ export default new Router({
       path: '/settings-item-edit',
       name: 'settings-item-create',
       component: SettingsItemsEdit
+    },
+    {
+      path: '/settings-category-edit/:id',
+      name: 'settings-category-edit',
+      component: SettingsCategoriessEdit,
+      props: true
+    },
+    {
+      path: '/settings-category-edit',
+      name: 'settings-category-create',
+      component: SettingsCategoriessEdit
     },
     {
       path: '/documentation',

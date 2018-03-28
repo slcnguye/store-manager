@@ -273,6 +273,21 @@ export const store = new Vuex.Store({
       newItem.id = maxId + 1
       state.items.push(newItem)
     },
+    saveCategoryUpdate (state, updatedCategory) {
+      const categoryIndex = state.categories.findIndex((category) => {
+        return category.id === updatedCategory.id
+      })
+      if (categoryIndex >= 0) {
+        state.categories[categoryIndex] = updatedCategory
+      }
+    },
+    saveCategoryNew (state, newCategory) {
+      const maxId = state.categories.reduce((maxId, id) => {
+        return maxId > id ? maxId : id
+      })
+      newCategory.id = maxId + 1
+      state.categories.push(newCategory)
+    },
     checkoutOrder (state, orderSummary) {
       state.completedOrders.push({
         id: state.completedOrders.length,
@@ -325,6 +340,12 @@ export const store = new Vuex.Store({
     },
     saveItemNew ({ commit }, newItem) {
       return Promise.resolve(commit('saveItemNew', newItem))
+    },
+    saveCategoryUpdate ({ commit }, updatedCategory) {
+      return Promise.resolve(commit('saveCategoryUpdate', updatedCategory))
+    },
+    saveCategoryNew ({ commit }, newCategory) {
+      return Promise.resolve(commit('saveCategoryNew', newCategory))
     }
   }
 })
