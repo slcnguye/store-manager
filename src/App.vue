@@ -6,7 +6,7 @@
     </el-header>
     <div class="container">
       <el-menu :collapse="true" :router="true">
-        <el-menu-item index="/home" class="text-center">
+        <el-menu-item index="/" class="text-center">
           <i class="fa fa-home fa-lg"></i>
           <span slot="title">Home</span>
         </el-menu-item>

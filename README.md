@@ -30,10 +30,6 @@ npm test
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
 ## TODOs
-settings for categories and items
-
-modify order summaries: remove item, change price
-
 add history table for settings (type, id, previous value, current value, timestamp)
 
 change completed orders to copy data

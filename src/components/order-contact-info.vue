@@ -2,8 +2,8 @@
   <div class="order-contact-info">
     <div class="contact-info pointer" @click="dialogFormVisible = true">
       <i class="fa fa-user-o fa-lg padding-right text-muted"></i>
-      <span class="text-link" v-if="!currentPhoneNumber">Enter Client Number</span>
-      <span class="text-link" v-else>{{ currentPhoneNumber | toPhoneNumber }}</span>
+      <span class="text-link" v-if="!session.phoneNumber">Enter Client Number</span>
+      <span class="text-link" v-else>{{ session.phoneNumber | toPhoneNumber }}</span>
     </div>
 
     <el-dialog title="Contact Info" :visible.sync="dialogFormVisible">
@@ -51,7 +51,7 @@ export default {
     validPhoneNumber () {
       return this.number && this.number.length === 10
     },
-    ...mapState(['currentPhoneNumber'])
+    ...mapState(['session'])
   },
   methods: {
     addDigit (digit) {
