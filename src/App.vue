@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-    <el-header class="header">
+    <el-header class="header" v-if="showNavbar">
       <img style="height: calc( 100% - 20px );" src="./assets/logo.png">
       <span class="padding-left">Ékea Furniture Store</span>
     </el-header>
     <div class="container">
-      <el-menu :collapse="true" :router="true">
-        <el-menu-item index="/home" class="text-center">
+      <el-menu :collapse="true" :router="true" v-if="showMenu">
+        <el-menu-item index="/" class="text-center">
           <i class="fa fa-home fa-lg"></i>
           <span slot="title">Home</span>
         </el-menu-item>
@@ -35,7 +35,15 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  computed: {
+    showMenu () {
+      return this.$route.meta.showMenu
+    },
+    showNavbar () {
+      return this.$route.meta.showNavbar
+    }
+  }
 }
 </script>
 

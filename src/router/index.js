@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HomePage from '@/components/home-page'
+import LandingPage from '@/components/landing-page'
 import Documentation from '@/components/documentation'
 import Order from '@/components/order'
 import CompletedOrders from '@/components/completed-orders'
 import Settings from '@/components/settings'
 import SettingsItemsEdit from '@/components/settings-items-edit'
-import SettingsCategoriessEdit from '@/components/settings-categories-edit'
+import SettingsCategoriesEdit from '@/components/settings-categories-edit'
+import { requireValidTenant } from './route-validation'
 
 Vue.use(Router)
 
@@ -15,49 +17,66 @@ export default new Router({
     {
       path: '/',
       name: 'home-page',
-      component: HomePage
+      component: HomePage,
+      meta: { showMenu: false, showNavbar: false }
     },
     {
       path: '/order',
       name: 'order',
-      component: Order
+      component: Order,
+      meta: { showMenu: true, showNavbar: true }
     },
     {
       path: '/completed-orders',
       name: 'completed-orders',
-      component: CompletedOrders
+      component: CompletedOrders,
+      meta: { showMenu: true, showNavbar: true }
     },
     {
       path: '/settings',
       name: 'settings',
-      component: Settings
+      component: Settings,
+      meta: { showMenu: true, showNavbar: true }
     },
     {
       path: '/settings-item-edit/:id',
       name: 'settings-item-edit',
       component: SettingsItemsEdit,
-      props: true
+      props: true,
+      meta: { showMenu: true, showNavbar: true }
     },
     {
       path: '/settings-item-edit',
       name: 'settings-item-create',
-      component: SettingsItemsEdit
+      component: SettingsItemsEdit,
+      meta: { showMenu: true, showNavbar: true }
     },
     {
       path: '/settings-category-edit/:id',
       name: 'settings-category-edit',
-      component: SettingsCategoriessEdit,
-      props: true
+      component: SettingsCategoriesEdit,
+      props: true,
+      meta: { showMenu: true, showNavbar: true }
     },
     {
       path: '/settings-category-edit',
       name: 'settings-category-create',
-      component: SettingsCategoriessEdit
+      component: SettingsCategoriesEdit,
+      meta: { showMenu: true, showNavbar: true }
     },
     {
       path: '/documentation',
       name: 'documentation',
-      component: Documentation
+      component: Documentation,
+      meta: { showMenu: true, showNavbar: true }
+    },
+    {
+      path: '/:tenantPrefix',
+      name: 'landing-page',
+      component: LandingPage,
+      props: true,
+      beforeEnter: requireValidTenant,
+      meta: { showMenu: false, showNavbar: false }
     }
   ]
 })
