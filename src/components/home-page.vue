@@ -4,6 +4,7 @@
       <el-header>
       </el-header>
       <el-main>
+        Home page
       </el-main>
     </el-container>
   </div>

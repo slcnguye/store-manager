@@ -41,3 +41,5 @@ create clients page
 public site
 
 analytics
+
+check for activated product and check for correct permission when visiting a screen

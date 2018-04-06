@@ -11,7 +11,8 @@ export const store = new Vuex.Store({
       { id: 2, name: 'POS_REGISTER' }
     ],
     tenants: [
-      { id: 1, name: 'Ékea Furniture Store', activeDate: '2018-04-04', prefixUrl: 'ekea' }
+      { id: 1, name: 'Ékea Furniture Store', email: 'ekea@gmail.com', address1: '492 Beaumont St', address2: 'Fake Town, Province M9L 2X4', phoneNumber: '4162849530', activeDate: '2018-04-04', prefixUrl: 'ekea' },
+      { id: 2, name: 'Ékea2 Furniture Store', email: 'ekea@gmail.com', address1: '492 Beaumont St', address2: 'Fake Town, Province M9L 2X4', phoneNumber: '4162849530', activeDate: '2018-04-04', prefixUrl: 'ekea2' }
     ],
     tenantProducts: [
       { productId: 1, activeFrom: '2018-04-04', activeTo: null, tenantId: 1 },
@@ -20,7 +21,8 @@ export const store = new Vuex.Store({
     session: {
       order: [],
       phoneNumber: null,
-      categoryId: 0
+      categoryId: 0,
+      tenant: null
     },
     items: [
       {id: 1, tenantId: 1, name: 'Storage w/ glass door', price: 610.00, categoryId: 1},
@@ -54,7 +56,6 @@ export const store = new Vuex.Store({
             'id': 1,
             'name': 'Storage w/ glass door',
             'price': 610,
-            'color': '#D83AFF',
             'categoryId': 1,
             'quantity': 1
           },
@@ -62,7 +63,6 @@ export const store = new Vuex.Store({
             'id': 9,
             'name': 'Floor lamp',
             'price': 35,
-            'color': '#FF613A',
             'categoryId': 4,
             'quantity': 1
           },
@@ -70,7 +70,6 @@ export const store = new Vuex.Store({
             'id': 11,
             'name': 'Coffee table',
             'price': 115,
-            'color': '#3cfff8',
             'categoryId': 5,
             'quantity': 1
           },
@@ -78,7 +77,6 @@ export const store = new Vuex.Store({
             'id': 4,
             'name': 'Ottoman',
             'price': 450,
-            'color': '#67C23A',
             'categoryId': 3,
             'quantity': 1
           },
@@ -86,7 +84,6 @@ export const store = new Vuex.Store({
             'id': 5,
             'name': 'Sofa bed',
             'price': 795,
-            'color': '#67C23A',
             'categoryId': 3,
             'quantity': 1
           }
@@ -102,7 +99,6 @@ export const store = new Vuex.Store({
             'id': 7,
             'name': 'Sectional sofa',
             'price': 1050,
-            'color': '#67C23A',
             'categoryId': 3,
             'quantity': 1
           },
@@ -110,7 +106,6 @@ export const store = new Vuex.Store({
             'id': 12,
             'name': 'Side table',
             'price': 15,
-            'color': '#3cfff8',
             'categoryId': 5,
             'quantity': 1
           },
@@ -118,7 +113,6 @@ export const store = new Vuex.Store({
             'id': 5,
             'name': 'Sofa bed',
             'price': 795,
-            'color': '#67C23A',
             'categoryId': 3,
             'quantity': 1
           },
@@ -126,7 +120,6 @@ export const store = new Vuex.Store({
             'id': 6,
             'name': 'Cushions',
             'price': 45,
-            'color': '#67C23A',
             'categoryId': 3,
             'quantity': 1
           }
@@ -142,7 +135,6 @@ export const store = new Vuex.Store({
             'id': 13,
             'name': 'Storage table',
             'price': 99,
-            'color': '#3cfff8',
             'categoryId': 5,
             'quantity': 1
           }
@@ -158,7 +150,6 @@ export const store = new Vuex.Store({
             'id': 9,
             'name': 'Floor lamp',
             'price': 35,
-            'color': '#FF613A',
             'categoryId': 4,
             'quantity': 1
           },
@@ -166,7 +157,6 @@ export const store = new Vuex.Store({
             'id': 3,
             'name': 'TV unit w/ drawers',
             'price': 195,
-            'color': '#D83AFF',
             'categoryId': 1,
             'quantity': 1
           }
@@ -182,7 +172,6 @@ export const store = new Vuex.Store({
             'id': 8,
             'name': 'Table lamp',
             'price': 55,
-            'color': '#FF613A',
             'categoryId': 4,
             'quantity': 1
           },
@@ -190,7 +179,6 @@ export const store = new Vuex.Store({
             'id': 2,
             'name': 'TV bench',
             'price': 105,
-            'color': '#D83AFF',
             'categoryId': 1,
             'quantity': 2
           },
@@ -198,7 +186,6 @@ export const store = new Vuex.Store({
             'id': 4,
             'name': 'Ottoman',
             'price': 450,
-            'color': '#67C23A',
             'categoryId': 3,
             'quantity': 1
           },
@@ -206,7 +193,6 @@ export const store = new Vuex.Store({
             'id': 11,
             'name': 'Coffee table',
             'price': 115,
-            'color': '#3cfff8',
             'categoryId': 5,
             'quantity': 1
           }
@@ -222,7 +208,6 @@ export const store = new Vuex.Store({
             'id': 1,
             'name': 'Storage w/ glass door',
             'price': 610,
-            'color': '#D83AFF',
             'categoryId': 1,
             'quantity': 2
           }
@@ -333,6 +318,9 @@ export const store = new Vuex.Store({
     },
     setPhoneNumber (state, phoneNumber) {
       state.session.phoneNumber = phoneNumber
+    },
+    setTenant (state, tenant) {
+      state.session.tenant = tenant
     }
   },
   actions: {
@@ -365,6 +353,9 @@ export const store = new Vuex.Store({
     },
     saveCategoryNew ({ commit }, newCategory) {
       return Promise.resolve(commit('saveCategoryNew', newCategory))
+    },
+    setTenant ({ commit }, tenant) {
+      return Promise.resolve(commit('setTenant', tenant))
     }
   }
 })

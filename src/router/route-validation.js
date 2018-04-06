@@ -10,3 +10,8 @@ export function requireValidTenant (to, from, next) {
     next('/')
   }
 }
+
+export function requireValidAdmin (to, from, next) {
+  // Check user is authenticated and valid for tenant
+  next()
+}
