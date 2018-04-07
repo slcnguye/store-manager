@@ -1,10 +1,15 @@
-import {store} from '../store'
+import { store } from '../store'
+
+function getTenant (tenantPrefix) {
+  return store.state.tenants.find(tenant => {
+    return tenant.prefixUrl === tenantPrefix
+  })
+}
 
 export function requireValidTenant (to, from, next) {
-  const tenant = store.state.tenants.find(tenant => {
-    return tenant.prefixUrl === to.params.tenantPrefix
-  })
+  const tenant = getTenant(to.params.tenantPrefix)
   if (tenant) {
+    store.dispatch('setTenant', tenant)
     next()
   } else {
     next('/')
@@ -13,5 +18,6 @@ export function requireValidTenant (to, from, next) {
 
 export function requireValidAdmin (to, from, next) {
   // Check user is authenticated and valid for tenant
-  next()
+  requireValidTenant(to, from, next)
+  // next()
 }
