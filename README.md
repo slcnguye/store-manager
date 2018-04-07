@@ -43,3 +43,7 @@ public site
 analytics
 
 check for activated product and check for correct permission when visiting a screen
+
+users by pin code
+
+screen to edit tenant information

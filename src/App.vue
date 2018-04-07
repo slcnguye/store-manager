@@ -2,7 +2,7 @@
   <div id="app">
     <el-header class="header" v-if="showNavbar">
       <img style="height: calc( 100% - 20px );" src="./assets/logo.png">
-      <span class="padding-left">Ékea Furniture Store</span>
+      <span class="padding-left" v-if="tenant">{{ tenant.name }}</span>
     </el-header>
     <div class="container">
       <el-menu :collapse="true" :router="true" v-if="showMenu && tenantPrefix">
@@ -45,8 +45,11 @@ export default {
     showNavbar () {
       return this.$route.meta.showNavbar
     },
+    tenant () {
+      return this.session ? this.session.tenant : null
+    },
     tenantPrefix () {
-      return this.session && this.session.tenant ? this.session.tenant.prefixUrl : null
+      return this.tenant ? this.tenant.prefixUrl : null
     },
     ...mapState(['session'])
   },

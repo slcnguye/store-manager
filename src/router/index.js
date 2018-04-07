@@ -13,6 +13,7 @@ import { requireValidTenant, requireValidAdmin } from './route-validation'
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -25,21 +26,21 @@ export default new Router({
       name: 'order',
       component: Order,
       beforeEnter: requireValidAdmin,
-      meta: { showMenu: true, showNavbar: true }
+      meta: { showMenu: true, showNavbar: true, productPermissions: ['POS_REGISTER'] }
     },
     {
       path: '/:tenantPrefix/completed-orders',
       name: 'completed-orders',
       component: CompletedOrders,
       beforeEnter: requireValidAdmin,
-      meta: { showMenu: true, showNavbar: true }
+      meta: { showMenu: true, showNavbar: true, productPermissions: ['POS_REGISTER'] }
     },
     {
       path: '/:tenantPrefix/settings',
       name: 'settings',
       component: Settings,
       beforeEnter: requireValidAdmin,
-      meta: { showMenu: true, showNavbar: true }
+      meta: { showMenu: true, showNavbar: true, productPermissions: ['POS_REGISTER', 'LANDING_PAGE'] }
     },
     {
       path: '/:tenantPrefix/settings-item-edit/:id',
@@ -47,14 +48,14 @@ export default new Router({
       component: SettingsItemsEdit,
       props: true,
       beforeEnter: requireValidAdmin,
-      meta: { showMenu: true, showNavbar: true }
+      meta: { showMenu: true, showNavbar: true, productPermissions: ['POS_REGISTER', 'LANDING_PAGE'] }
     },
     {
       path: '/:tenantPrefix/settings-item-edit',
       name: 'settings-item-create',
       component: SettingsItemsEdit,
       beforeEnter: requireValidAdmin,
-      meta: { showMenu: true, showNavbar: true }
+      meta: { showMenu: true, showNavbar: true, productPermissions: ['POS_REGISTER', 'LANDING_PAGE'] }
     },
     {
       path: '/:tenantPrefix/settings-category-edit/:id',
@@ -62,14 +63,14 @@ export default new Router({
       component: SettingsCategoriesEdit,
       props: true,
       beforeEnter: requireValidAdmin,
-      meta: { showMenu: true, showNavbar: true }
+      meta: { showMenu: true, showNavbar: true, productPermissions: ['POS_REGISTER', 'LANDING_PAGE'] }
     },
     {
       path: '/:tenantPrefix/settings-category-edit',
       name: 'settings-category-create',
       component: SettingsCategoriesEdit,
       beforeEnter: requireValidAdmin,
-      meta: { showMenu: true, showNavbar: true }
+      meta: { showMenu: true, showNavbar: true, productPermissions: ['POS_REGISTER', 'LANDING_PAGE'] }
     },
     {
       path: '/:tenantPrefix/documentation',
@@ -83,7 +84,7 @@ export default new Router({
       component: LandingPage,
       props: true,
       beforeEnter: requireValidTenant,
-      meta: { showMenu: false, showNavbar: false }
+      meta: { showMenu: false, showNavbar: false, productPermissions: ['LANDING_PAGE'] }
     }
   ]
 })
