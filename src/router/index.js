@@ -8,7 +8,7 @@ import CompletedOrders from '@/components/completed-orders'
 import Settings from '@/components/settings'
 import SettingsItemsEdit from '@/components/settings-items-edit'
 import SettingsCategoriesEdit from '@/components/settings-categories-edit'
-import { requireValidTenant } from './route-validation'
+import { requireValidTenant, requireValidAdmin } from './route-validation'
 
 Vue.use(Router)
 
@@ -21,51 +21,58 @@ export default new Router({
       meta: { showMenu: false, showNavbar: false }
     },
     {
-      path: '/order',
+      path: '/:tenantPrefix/order',
       name: 'order',
       component: Order,
+      beforeEnter: requireValidAdmin,
       meta: { showMenu: true, showNavbar: true }
     },
     {
-      path: '/completed-orders',
+      path: '/:tenantPrefix/completed-orders',
       name: 'completed-orders',
       component: CompletedOrders,
+      beforeEnter: requireValidAdmin,
       meta: { showMenu: true, showNavbar: true }
     },
     {
-      path: '/settings',
+      path: '/:tenantPrefix/settings',
       name: 'settings',
       component: Settings,
+      beforeEnter: requireValidAdmin,
       meta: { showMenu: true, showNavbar: true }
     },
     {
-      path: '/settings-item-edit/:id',
+      path: '/:tenantPrefix/settings-item-edit/:id',
       name: 'settings-item-edit',
       component: SettingsItemsEdit,
       props: true,
+      beforeEnter: requireValidAdmin,
       meta: { showMenu: true, showNavbar: true }
     },
     {
-      path: '/settings-item-edit',
+      path: '/:tenantPrefix/settings-item-edit',
       name: 'settings-item-create',
       component: SettingsItemsEdit,
+      beforeEnter: requireValidAdmin,
       meta: { showMenu: true, showNavbar: true }
     },
     {
-      path: '/settings-category-edit/:id',
+      path: '/:tenantPrefix/settings-category-edit/:id',
       name: 'settings-category-edit',
       component: SettingsCategoriesEdit,
       props: true,
+      beforeEnter: requireValidAdmin,
       meta: { showMenu: true, showNavbar: true }
     },
     {
-      path: '/settings-category-edit',
+      path: '/:tenantPrefix/settings-category-edit',
       name: 'settings-category-create',
       component: SettingsCategoriesEdit,
+      beforeEnter: requireValidAdmin,
       meta: { showMenu: true, showNavbar: true }
     },
     {
-      path: '/documentation',
+      path: '/:tenantPrefix/documentation',
       name: 'documentation',
       component: Documentation,
       meta: { showMenu: true, showNavbar: true }
