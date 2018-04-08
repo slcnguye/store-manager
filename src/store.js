@@ -11,12 +11,34 @@ export const store = new Vuex.Store({
       { id: 2, name: 'POS_REGISTER' }
     ],
     tenants: [
-      { id: 1, name: 'Ékea Furniture Store', email: 'ekea@gmail.com', address1: '492 Beaumont St', address2: 'Fake Town, Province M9L 2X4', phoneNumber: '4162849530', activeDate: '2018-04-04', prefixUrl: 'ekea' },
-      { id: 2, name: 'Ékea2 Furniture Store', email: 'ekea@gmail.com', address1: '492 Beaumont St', address2: 'Fake Town, Province M9L 2X4', phoneNumber: '4162849530', activeDate: '2018-04-04', prefixUrl: 'ekea2' }
+      { id: 1,
+        name: 'Rainbowy Nails',
+        email: 'RainbowyNails@gmail.com',
+        address1: '492 Beaumont St',
+        address2: 'Fake Town, Province M9L 2X4',
+        phoneNumber: '4162849530',
+        activeFrom: '2018-04-04',
+        activeTo: null,
+        prefixUrl: 'ekea'
+      },
+      { id: 2,
+        name: 'Ékea2 Furniture',
+        email: 'ekea@gmail.com',
+        address1: '492 Beaumont St',
+        address2: 'Fake Town, Province M9L 2X4',
+        phoneNumber: '4162849530',
+        activeFrom: '2018-04-04',
+        activeTo: null,
+        prefixUrl: 'ekea2'
+      }
     ],
     tenantProducts: [
       { productId: 1, activeFrom: '2018-04-04', activeTo: null, tenantId: 1 },
       { productId: 2, activeFrom: '2018-04-05', activeTo: null, tenantId: 1 }
+    ],
+    tenantStyles: [
+      { color: '#2F2E28', type: 'PRIMARY', tenantId: 1 },
+      { color: '#FDFCF4', type: 'FONT_COLOR', tenantId: 1 }
     ],
     session: {
       order: [],
@@ -241,6 +263,22 @@ export const store = new Vuex.Store({
       return state.items.filter((item) => {
         return item.categoryId === state.session.categoryId
       })
+    },
+    tenantColorMap: (state) => {
+      const tenant = state.session.tenant
+      if (!tenant) {
+        return {}
+      }
+
+      const tenantStyles = state.tenantStyles.filter((tenantStyle) => {
+        return tenantStyle.tenantId === tenant.id
+      })
+
+      const tenantColorMap = {}
+      tenantStyles.forEach((tenantStyle) => {
+        tenantColorMap[tenantStyle.type] = tenantStyle.color
+      })
+      return tenantColorMap
     }
   },
   mutations: {
