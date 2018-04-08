@@ -4,7 +4,7 @@
       <img style="height: calc( 100% - 20px );" src="./assets/logo.png">
       <span class="padding-left" v-if="tenant">{{ tenant.name }}</span>
     </el-header>
-    <div class="container">
+    <div class="container" :class="{ 'container-with-header': showNavbar }">
       <el-menu :collapse="true" :router="true" v-if="showMenu && tenantPrefix">
         <el-menu-item :index="withTenantPrefix('')" class="text-center">
           <i class="fa fa-home fa-lg"></i>
@@ -74,7 +74,11 @@ export default {
   }
 
   .container {
-    height: calc( 100vh - 60px );
+    height: 100vh;
     display: flex;
+  }
+
+  .container-with-header {
+    height: calc( 100vh - 60px );
   }
 </style>

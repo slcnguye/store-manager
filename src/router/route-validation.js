@@ -7,6 +7,22 @@ function getTenant (tenantPrefix) {
   })
 }
 
+function isActive (activeFrom, activeTo) {
+  const today = moment()
+  let fromDate = activeFrom || today
+  let toDate = activeTo || today
+  return today.isBetween(fromDate, toDate) ||
+    today.isSame(fromDate) || today.isSame(toDate)
+}
+
+function isTenantActive (tenant) {
+  if (!tenant) {
+    return false
+  }
+
+  return isActive(tenant.activeFrom, tenant.activeTo)
+}
+
 function tenantHasProductPermission (tenant, productPermissions) {
   if (!tenant) {
     return false
@@ -17,10 +33,8 @@ function tenantHasProductPermission (tenant, productPermissions) {
   }
 
   const tenantProducts = store.state.tenantProducts.filter(tenantProduct => {
-    const today = moment()
-    const activeTo = tenantProduct.activeTo || today
     return tenant.id === tenantProduct.tenantId &&
-      (today.isBetween(tenantProduct.activeFrom, activeTo) || today.isSame(activeTo) || today.isSame(tenantProduct.activeFrom))
+      isActive(tenantProduct.activeFrom, tenantProduct.activeTo)
   })
 
   if (!tenantProducts || tenantProducts.length < 1) {
@@ -43,7 +57,7 @@ function tenantHasProductPermission (tenant, productPermissions) {
 export function requireValidTenant (to, from, next) {
   const tenant = getTenant(to.params.tenantPrefix)
   const productPermissions = to.meta ? to.meta.productPermissions : null
-  if (tenant && tenantHasProductPermission(tenant, productPermissions)) {
+  if (isTenantActive(tenant) && tenantHasProductPermission(tenant, productPermissions)) {
     store.dispatch('setTenant', tenant)
     next()
   } else {

@@ -6,16 +6,18 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'font-awesome/css/font-awesome.css'
 import locale from 'element-ui/lib/locale/lang/en'
+import vueScrollto from 'vue-scrollto'
 
 import router from './router'
 import './filters'
-
 import {store} from './store'
-import './styles/ssk.css'
 
+import './styles/ssk.css'
 Vue.config.productionTip = false
 
 Vue.use(ElementUI, { locale })
+
+Vue.use(vueScrollto)
 
 /* eslint-disable no-new */
 new Vue({

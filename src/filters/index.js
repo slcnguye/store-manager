@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueCurrencyFilter from 'vue-currency-filter'
 import PhoneNumberFilter from './phone-number.filter'
+import UppercaseFilter from './uppercase.filter'
 
 Vue.use(VueCurrencyFilter,
   {
@@ -13,3 +14,4 @@ Vue.use(VueCurrencyFilter,
   }
 )
 Vue.filter('toPhoneNumber', PhoneNumberFilter)
+Vue.filter('uppercase', UppercaseFilter)
