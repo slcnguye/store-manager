@@ -34,12 +34,8 @@ add history table for settings (type, id, previous value, current value, timesta
 
 change completed orders to copy data
 
-public site
-
 analytics
 
 create tenants page to maintain active tenants and products for the tenants
-
-add authentication: users by pin code
 
 screen to edit tenant information
