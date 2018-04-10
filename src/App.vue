@@ -1,8 +1,14 @@
 <template>
   <div id="app">
     <el-header class="header" v-if="showNavbar">
-      <img style="height: calc( 100% - 20px );" src="./assets/logo.png">
-      <span class="padding-left" v-if="tenant">{{ tenant.name }}</span>
+      <div class="header-left">
+        <img style="height: 40px;" src="./assets/logo.png">
+        <span class="padding-left" v-if="tenant">{{ tenant.name }}</span>
+      </div>
+      <el-button @click="signOut">
+        Sign out
+        <i class="fa fa-sign-out fa-lg"></i>
+      </el-button>
     </el-header>
     <div class="container" :class="{ 'container-with-header': showNavbar }">
       <el-menu :collapse="true" :router="true" v-if="showMenu && tenantPrefix">
@@ -56,6 +62,10 @@ export default {
   methods: {
     withTenantPrefix (suffixUrl) {
       return '/' + this.tenantPrefix + suffixUrl
+    },
+    signOut () {
+      this.$store.dispatch('setUser', null)
+      this.$router.push({name: 'login'})
     }
   }
 }
@@ -71,6 +81,12 @@ export default {
     align-items: center;
     background-color: white;
     border-bottom: solid 1px #e6e6e6;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    flex: 1;
   }
 
   .container {

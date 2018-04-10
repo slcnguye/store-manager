@@ -7,6 +7,14 @@ function getTenant (tenantPrefix) {
   })
 }
 
+function getUser (tenant) {
+  const user = store.state.session.user
+  if (!user || user.tenantId !== tenant.id) {
+    return null
+  }
+  return user
+}
+
 function isActive (activeFrom, activeTo) {
   const today = moment()
   let fromDate = activeFrom || today
@@ -67,6 +75,17 @@ export function requireValidTenant (to, from, next) {
 
 export function requireValidAdmin (to, from, next) {
   // Check user is authenticated and valid for tenant
-  requireValidTenant(to, from, next)
-  // next()
+  const tenant = getTenant(to.params.tenantPrefix)
+  const productPermissions = to.meta ? to.meta.productPermissions : null
+  const user = getUser(tenant)
+  if (isTenantActive(tenant)) {
+    if (tenantHasProductPermission(tenant, productPermissions) && user) {
+      next()
+    } else if (tenant) {
+      // if there is the wrong product permission navigate to dashboard
+      next('/' + tenant.prefixUrl + '/login')
+    }
+  } else {
+    next('/')
+  }
 }
