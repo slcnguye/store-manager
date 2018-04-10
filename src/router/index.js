@@ -4,6 +4,7 @@ import HomePage from '@/components/home-page'
 import LandingPage from '@/components/landing-page'
 import Documentation from '@/components/documentation'
 import Order from '@/components/order'
+import Login from '@/components/login'
 import CompletedOrders from '@/components/completed-orders'
 import Settings from '@/components/settings'
 import SettingsItemsEdit from '@/components/settings-items-edit'
@@ -20,6 +21,12 @@ export default new Router({
       name: 'home-page',
       component: HomePage,
       meta: { showMenu: false, showNavbar: false }
+    },
+    {
+      path: '/:tenantPrefix/login',
+      name: 'login',
+      component: Login,
+      beforeEnter: requireValidTenant
     },
     {
       path: '/:tenantPrefix/order',

@@ -34,16 +34,12 @@ add history table for settings (type, id, previous value, current value, timesta
 
 change completed orders to copy data
 
-add authentication
-
-create clients page
-
 public site
 
 analytics
 
-check for activated product and check for correct permission when visiting a screen
+create tenants page to maintain active tenants and products for the tenants
 
-users by pin code
+add authentication: users by pin code
 
 screen to edit tenant information

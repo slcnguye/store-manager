@@ -37,14 +37,19 @@ export const store = new Vuex.Store({
       { productId: 2, activeFrom: '2018-04-05', activeTo: null, tenantId: 1 }
     ],
     tenantStyles: [
-      { color: '#2F2E28', type: 'PRIMARY', tenantId: 1 },
-      { color: '#FDFCF4', type: 'FONT_COLOR', tenantId: 1 }
+      { color: '#2d76a2', type: 'PRIMARY', tenantId: 1 },
+      { color: '#89bcc6', type: 'SECONDARY', tenantId: 1 },
+      { color: 'white', type: 'FONT_COLOR', tenantId: 1 }
+    ],
+    tenantUsers: [
+      { tenantId: 1, accessCode: '111' }
     ],
     session: {
       order: [],
       phoneNumber: null,
       categoryId: 0,
-      tenant: null
+      tenant: null,
+      user: null
     },
     items: [
       {id: 1, tenantId: 1, name: 'Storage w/ glass door', price: 610.00, categoryId: 1},
@@ -359,6 +364,9 @@ export const store = new Vuex.Store({
     },
     setTenant (state, tenant) {
       state.session.tenant = tenant
+    },
+    setUser (state, user) {
+      state.session.user = user
     }
   },
   actions: {
@@ -394,6 +402,9 @@ export const store = new Vuex.Store({
     },
     setTenant ({ commit }, tenant) {
       return Promise.resolve(commit('setTenant', tenant))
+    },
+    setUser ({ commit }, user) {
+      return Promise.resolve(commit('setUser', user))
     }
   }
 })
