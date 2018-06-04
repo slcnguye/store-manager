@@ -9,6 +9,9 @@
           <el-tab-pane label="Categories" :name="tabs.categories">
             <settings-categories-list></settings-categories-list>
           </el-tab-pane>
+          <el-tab-pane label="Payment Methods" :name="tabs.paymentMethods">
+            <settings-payment-methods-list></settings-payment-methods-list>
+          </el-tab-pane>
         </el-tabs>
       </el-main>
     </el-container>
@@ -18,17 +21,20 @@
 <script>
 import SettingsItemsList from './settings-items-list.vue'
 import SettingsCategoriesList from './settings-categories-list.vue'
+import SettingsPaymentMethodsList from './settings-payment-methods-list.vue'
 
 const TABS = {
   items: '1',
-  categories: '2'
+  categories: '2',
+  paymentMethods: '3'
 }
 
 export default {
   name: 'settings',
   components: {
     SettingsItemsList,
-    SettingsCategoriesList
+    SettingsCategoriesList,
+    SettingsPaymentMethodsList
   },
   data: function () {
     return {

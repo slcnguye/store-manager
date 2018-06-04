@@ -72,6 +72,10 @@ export const store = new Vuex.Store({
       {id: 4, tenantId: 1, name: 'Lighting', color: '#FF613A'},
       {id: 5, tenantId: 1, name: 'Coffee & side tables', color: '#3cfff8'}
     ],
+    paymentMethods: [
+      {id: 0, tenantId: 1, name: 'Cash'},
+      {id: 1, tenantId: 1, name: 'Debit/Credit'}
+    ],
     completedOrders: [
       {
         tenantId: 1,
@@ -314,8 +318,8 @@ export const store = new Vuex.Store({
       }
     },
     saveItemNew (state, newItem) {
-      const maxId = state.items.reduce((maxId, id) => {
-        return maxId > id ? maxId : id
+      const maxId = state.items.reduce((maxId, item) => {
+        return maxId > item.id ? maxId : item.id
       })
       newItem.id = maxId + 1
       state.items.push(newItem)
@@ -329,20 +333,36 @@ export const store = new Vuex.Store({
       }
     },
     saveCategoryNew (state, newCategory) {
-      const maxId = state.categories.reduce((maxId, id) => {
-        return maxId > id ? maxId : id
+      const maxId = state.categories.reduce((maxId, category) => {
+        return maxId > category.id ? maxId : category.id
       })
       newCategory.id = maxId + 1
       state.categories.push(newCategory)
     },
-    checkoutOrder (state, orderSummary) {
+    savePaymentMethodUpdate (state, updatedPaymentMethod) {
+      const paymentMethodIndex = state.paymentMethods.findIndex((paymentMethod) => {
+        return paymentMethod.id === updatedPaymentMethod.id
+      })
+      if (paymentMethodIndex >= 0) {
+        state.paymentMethods[paymentMethodIndex] = updatedPaymentMethod
+      }
+    },
+    savePaymentMethodNew (state, newPaymentMethod) {
+      const maxId = state.paymentMethods.reduce((maxId, paymentMethod) => {
+        return maxId > paymentMethod.id ? maxId : paymentMethod.id
+      })
+      newPaymentMethod.id = maxId + 1
+      state.paymentMethods.push(newPaymentMethod)
+    },
+    checkoutOrder (state, orderDetail) {
       state.completedOrders.push({
         id: state.completedOrders.length,
         timestamp: moment().format(),
-        items: orderSummary,
+        items: orderDetail.orderSummary,
         client: {
           number: state.session.phoneNumber
-        }
+        },
+        paymentMethod: orderDetail.paymentMethod
       })
       state.session.order = []
       state.session.phoneNumber = null
@@ -376,8 +396,8 @@ export const store = new Vuex.Store({
     removeFromOrder ({ commit }, itemDetail) {
       return Promise.resolve(commit('removeFromOrder', itemDetail))
     },
-    checkoutOrder ({ commit, getters }) {
-      return Promise.resolve(commit('checkoutOrder', getters.orderSummary))
+    checkoutOrder ({ commit, getters }, paymentMethod) {
+      return Promise.resolve(commit('checkoutOrder', { orderSummary: getters.orderSummary, paymentMethod }))
     },
     clearOrder ({ commit }) {
       return Promise.resolve(commit('clearOrder'))
@@ -399,6 +419,12 @@ export const store = new Vuex.Store({
     },
     saveCategoryNew ({ commit }, newCategory) {
       return Promise.resolve(commit('saveCategoryNew', newCategory))
+    },
+    savePaymentMethodUpdate ({ commit }, updatedPaymentMethod) {
+      return Promise.resolve(commit('savePaymentMethodUpdate', updatedPaymentMethod))
+    },
+    savePaymentMethodNew ({ commit }, newPaymentMethod) {
+      return Promise.resolve(commit('savePaymentMethodNew', newPaymentMethod))
     },
     setTenant ({ commit }, tenant) {
       return Promise.resolve(commit('setTenant', tenant))

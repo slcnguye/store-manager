@@ -12,10 +12,6 @@
     </el-header>
     <div class="container" :class="{ 'container-with-header': showNavbar }">
       <el-menu :collapse="true" :router="true" v-if="showMenu && tenantPrefix">
-        <el-menu-item :index="withTenantPrefix('')" class="text-center">
-          <i class="fa fa-home fa-lg"></i>
-          <span slot="title">Home</span>
-        </el-menu-item>
         <el-menu-item :index="withTenantPrefix('/order')" class="text-center">
           <i class="fa fa-shopping-cart fa-lg"></i>
           <span slot="title">Order</span>

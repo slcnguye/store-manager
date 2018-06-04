@@ -13,7 +13,7 @@
     </div>
     <el-row class="padding">
       <el-col :span="19">
-        <el-button @click="onCheckout" type="success" v-bind:disabled="!hasOrder" class="action-button">Pay</el-button>
+        <order-summary-pay></order-summary-pay>
       </el-col>
       <el-col :span="4" :offset="1">
         <el-button @click="onClear" type="danger" class="action-button">Clear</el-button>
@@ -26,10 +26,12 @@
 import { mapGetters } from 'vuex'
 import OrderSummaryItemDetail from './order-summary-item-detail.vue'
 import OrderSummaryPriceDetail from './order-summary-price-detail.vue'
+import OrderSummaryPay from './order-summary-pay.vue'
 
 export default {
   name: 'order-summary',
   components: {
+    OrderSummaryPay,
     OrderSummaryItemDetail,
     OrderSummaryPriceDetail
   },
@@ -52,15 +54,9 @@ export default {
     total () {
       return this.subTotal + this.taxTotal
     },
-    hasOrder () {
-      return this.orderSummary && this.orderSummary.length > 0
-    },
     ...mapGetters(['orderSummary'])
   },
   methods: {
-    onCheckout () {
-      this.$store.dispatch('checkoutOrder')
-    },
     onClear () {
       this.$store.dispatch('clearOrder')
     }
