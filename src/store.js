@@ -73,8 +73,8 @@ export const store = new Vuex.Store({
       {id: 5, tenantId: 1, name: 'Coffee & side tables', color: '#3cfff8'}
     ],
     paymentMethods: [
-      {id: 0, tenantId: 1, name: 'Cash'},
-      {id: 1, tenantId: 1, name: 'Debit/Credit'}
+      {id: 0, tenantId: 1, name: 'Cash', isPrimary: true},
+      {id: 1, tenantId: 1, name: 'Debit/Credit', isPrimary: false}
     ],
     completedOrders: [
       {

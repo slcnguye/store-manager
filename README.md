@@ -36,7 +36,9 @@ delete settings
 
 screen to edit tenant information
 
-look into happi
+rest api for backend and database
+
+printer solutions from the web
 
 =======
 
