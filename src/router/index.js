@@ -44,9 +44,10 @@ export default new Router({
       meta: { showMenu: true, showNavbar: true, productPermissions: ['POS_REGISTER'] }
     },
     {
-      path: '/:tenantPrefix/settings',
+      path: '/:tenantPrefix/settings/:tabName?',
       name: 'settings',
       component: Settings,
+      props: true,
       beforeEnter: requireValidAdmin,
       meta: { showMenu: true, showNavbar: true, productPermissions: ['POS_REGISTER', 'LANDING_PAGE'] }
     },

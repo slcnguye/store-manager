@@ -2,7 +2,7 @@
   <div class="settings">
     <el-container>
       <el-main>
-        <el-tabs v-model="activeTab" type="border-card">
+        <el-tabs v-model="activeTab" type="border-card" @tab-click="onTabClick">
           <el-tab-pane label="Items" :name="tabs.items">
             <settings-items-list></settings-items-list>
           </el-tab-pane>
@@ -31,6 +31,7 @@ const TABS = {
 
 export default {
   name: 'settings',
+  props: ['tabName'],
   components: {
     SettingsItemsList,
     SettingsCategoriesList,
@@ -40,6 +41,24 @@ export default {
     return {
       tabs: TABS,
       activeTab: TABS.items
+    }
+  },
+  mounted: function () {
+    if (TABS[this.tabName]) {
+      this.activeTab = TABS[this.tabName]
+    }
+  },
+  methods: {
+    onTabClick (tab) {
+      let tabName
+      for (const [name, tabKey] of Object.entries(TABS)) {
+        if (tab.name === tabKey) {
+          tabName = name
+          break
+        }
+      }
+
+      this.$router.push({name: 'settings', params: { tabName }})
     }
   }
 }
