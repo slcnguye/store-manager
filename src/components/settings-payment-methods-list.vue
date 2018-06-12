@@ -7,6 +7,11 @@
     </div>
     <el-table :default-sort="{prop: 'name', order: 'ascending'}" :data="paymentMethods" stripe @row-click="onRowClicked">
       <el-table-column sortable class-name="pointer" prop="name" label="Name"></el-table-column>
+      <el-table-column sortable prop="isPrimary" label="Is Primary">
+        <template slot-scope="scope">
+          <span> {{ scope.row.isPrimary }} </span>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>

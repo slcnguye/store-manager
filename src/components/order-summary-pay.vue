@@ -1,6 +1,12 @@
 <template>
   <div class="order-summary-pay">
-    <el-button @click="paymentMethodModalVisible = true" type="success" v-bind:disabled="!hasOrder" class="action-button">Pay</el-button>
+    <div class="payment-button-group">
+      <el-button @click="onCheckout(primaryMethod)" v-for="primaryMethod in primaryMethods" :key="primaryMethod.id"
+                 type="success" v-bind:disabled="!hasOrder" class="payment-button">
+        {{ primaryMethod.name }}
+      </el-button>
+      <el-button @click="paymentMethodModalVisible = true" type="success" v-bind:disabled="!hasOrder" class="payment-button">Pay</el-button>
+    </div>
 
     <el-dialog title="Payment Method" :visible.sync="paymentMethodModalVisible">
       <el-row>
@@ -26,6 +32,9 @@ export default {
     hasOrder () {
       return this.orderSummary && this.orderSummary.length > 0
     },
+    primaryMethods () {
+      return this.paymentMethods.filter((method) => { return method.isPrimary })
+    },
     ...mapGetters(['orderSummary']),
     ...mapState(['paymentMethods'])
   },
@@ -39,8 +48,13 @@ export default {
 </script>
 
 <style scoped>
-  .action-button {
+  .payment-button-group {
     width: 100%;
+    display: flex;
+  }
+
+  .payment-button {
+    flex: 1;
     padding: 20px 10px;
   }
 

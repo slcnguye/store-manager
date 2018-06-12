@@ -10,6 +10,9 @@
             :rules="[{ required: true, message: 'Name is required'}]">
             <el-input v-model="form.name" maxlength="30"></el-input>
           </el-form-item>
+          <el-form-item label="Is Primary" prop="isPrimary">
+            <el-checkbox v-model="form.isPrimary"></el-checkbox>
+          </el-form-item>
           <el-form-item>
             <el-button type="success" @click="submitForm('form')">Submit</el-button>
             <el-button @click="cancel('form')">Cancel</el-button>
@@ -31,7 +34,8 @@ export default {
       form: {
         name: null,
         id: null,
-        tenantId: null
+        tenantId: null,
+        isPrimary: false
       }
     }
   },
@@ -40,6 +44,7 @@ export default {
     if (this.paymentMethodDetail) {
       this.form.id = this.paymentMethodDetail.id
       this.form.name = this.paymentMethodDetail.name
+      this.form.isPrimary = this.paymentMethodDetail.isPrimary
     }
   },
   computed: {
