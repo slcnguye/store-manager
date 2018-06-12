@@ -46,6 +46,7 @@ export default {
     }
   },
   mounted: function () {
+    this.form.tenantId = this.session.tenant.id
     if (this.itemDetail) {
       this.form.id = this.itemDetail.id
       this.form.name = this.itemDetail.name
@@ -67,13 +68,13 @@ export default {
         return category.id !== 0
       })
     },
-    ...mapState(['items', 'categories'])
+    ...mapState(['items', 'categories', 'session'])
   },
   methods: {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          if (this.form.id) {
+          if (Number.isInteger(this.form.id)) {
             this.$store.dispatch('saveItemUpdate', this.form)
           } else {
             this.$store.dispatch('saveItemNew', this.form)

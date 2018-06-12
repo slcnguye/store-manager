@@ -1,18 +1,14 @@
 <template>
-  <div class="settings-categories-edit">
+  <div class="settings-payment-methods-edit">
     <el-container>
       <el-main>
-        <h2 v-if="categoryDetail && categoryDetail.id">Edit Category</h2>
-        <h2 v-else>Create Category</h2>
+        <h2 v-if="paymentMethodDetail && paymentMethodDetail.id">Edit Payment Method</h2>
+        <h2 v-else>Create Payment Method</h2>
 
-        <el-form class="category-form" :model="form" ref="form" label-width="100px">
+        <el-form class="payment-method-form" :model="form" ref="form" label-width="100px">
           <el-form-item label="Name" prop="name"
             :rules="[{ required: true, message: 'Name is required'}]">
             <el-input v-model="form.name" maxlength="30"></el-input>
-          </el-form-item>
-          <el-form-item label="Color" prop="color"
-            :rules="[{ required: true, message: 'Color is required'}]">
-            <el-color-picker v-model="form.color"></el-color-picker>
           </el-form-item>
           <el-form-item>
             <el-button type="success" @click="submitForm('form')">Submit</el-button>
@@ -28,42 +24,42 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'settings-categories-edit',
+  name: 'settings-payment-methods-edit',
   props: ['id'],
   data: function () {
     return {
       form: {
         name: null,
-        color: null
+        id: null,
+        tenantId: null
       }
     }
   },
   mounted: function () {
     this.form.tenantId = this.session.tenant.id
-    if (this.categoryDetail) {
-      this.form.id = this.categoryDetail.id
-      this.form.name = this.categoryDetail.name
-      this.form.color = this.categoryDetail.color
+    if (this.paymentMethodDetail) {
+      this.form.id = this.paymentMethodDetail.id
+      this.form.name = this.paymentMethodDetail.name
     }
   },
   computed: {
-    categoryDetail () {
-      return this.categories.find((category) => {
-        if (category.id === this.id) {
-          return category
+    paymentMethodDetail () {
+      return this.paymentMethods.find((paymentMethod) => {
+        if (paymentMethod.id === this.id) {
+          return paymentMethod
         }
       })
     },
-    ...mapState(['categories', 'session'])
+    ...mapState(['paymentMethods', 'session'])
   },
   methods: {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           if (Number.isInteger(this.form.id)) {
-            this.$store.dispatch('saveCategoryUpdate', this.form)
+            this.$store.dispatch('savePaymentMethodUpdate', this.form)
           } else {
-            this.$store.dispatch('saveCategoryNew', this.form)
+            this.$store.dispatch('savePaymentMethodNew', this.form)
           }
           this.$router.go(-1)
         }
@@ -79,7 +75,7 @@ export default {
 </script>
 
 <style scoped>
-  .category-form {
+  .payment-method-form {
     width: 500px;
   }
 </style>

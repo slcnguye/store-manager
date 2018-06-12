@@ -1,0 +1,51 @@
+<template>
+  <div class="order-summary-pay">
+    <el-button @click="paymentMethodModalVisible = true" type="success" v-bind:disabled="!hasOrder" class="action-button">Pay</el-button>
+
+    <el-dialog title="Payment Method" :visible.sync="paymentMethodModalVisible">
+      <el-row>
+        <el-col :span="8" v-for="paymentMethod in paymentMethods" :key="paymentMethod.id" class="padding">
+          <el-button @click="onCheckout(paymentMethod)" type="plain" class="payment-method"> {{ paymentMethod.name }} </el-button>
+        </el-col>
+      </el-row>
+    </el-dialog>
+  </div>
+</template>
+
+<script>
+import { mapGetters, mapState } from 'vuex'
+
+export default {
+  name: 'order-summary-pay',
+  data: function () {
+    return {
+      paymentMethodModalVisible: false
+    }
+  },
+  computed: {
+    hasOrder () {
+      return this.orderSummary && this.orderSummary.length > 0
+    },
+    ...mapGetters(['orderSummary']),
+    ...mapState(['paymentMethods'])
+  },
+  methods: {
+    onCheckout (paymentMethod) {
+      this.paymentMethodModalVisible = false
+      this.$store.dispatch('checkoutOrder', paymentMethod)
+    }
+  }
+}
+</script>
+
+<style scoped>
+  .action-button {
+    width: 100%;
+    padding: 20px 10px;
+  }
+
+  .payment-method {
+    padding: 20px 10px;
+    width: 100%;
+  }
+</style>

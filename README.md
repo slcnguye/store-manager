@@ -30,12 +30,19 @@ npm test
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
 ## TODOs
-add history table for settings (type, id, previous value, current value, timestamp)
-
 change completed orders to copy data
+
+delete settings
+
+screen to edit tenant information
+
+look into happi
+
+=======
+
+add history table for settings (type, id, previous value, current value, timestamp)
 
 analytics
 
 create tenants page to maintain active tenants and products for the tenants
 
-screen to edit tenant information

@@ -9,6 +9,7 @@ import CompletedOrders from '@/components/completed-orders'
 import Settings from '@/components/settings'
 import SettingsItemsEdit from '@/components/settings-items-edit'
 import SettingsCategoriesEdit from '@/components/settings-categories-edit'
+import SettingsPaymentMethodsEdit from '@/components/settings-payment-methods-edit'
 import { requireValidTenant, requireValidAdmin } from './route-validation'
 
 Vue.use(Router)
@@ -55,14 +56,14 @@ export default new Router({
       component: SettingsItemsEdit,
       props: true,
       beforeEnter: requireValidAdmin,
-      meta: { showMenu: true, showNavbar: true, productPermissions: ['POS_REGISTER', 'LANDING_PAGE'] }
+      meta: { showMenu: true, showNavbar: true, productPermissions: ['POS_REGISTER'] }
     },
     {
       path: '/:tenantPrefix/settings-item-edit',
       name: 'settings-item-create',
       component: SettingsItemsEdit,
       beforeEnter: requireValidAdmin,
-      meta: { showMenu: true, showNavbar: true, productPermissions: ['POS_REGISTER', 'LANDING_PAGE'] }
+      meta: { showMenu: true, showNavbar: true, productPermissions: ['POS_REGISTER'] }
     },
     {
       path: '/:tenantPrefix/settings-category-edit/:id',
@@ -70,14 +71,29 @@ export default new Router({
       component: SettingsCategoriesEdit,
       props: true,
       beforeEnter: requireValidAdmin,
-      meta: { showMenu: true, showNavbar: true, productPermissions: ['POS_REGISTER', 'LANDING_PAGE'] }
+      meta: { showMenu: true, showNavbar: true, productPermissions: ['POS_REGISTER'] }
     },
     {
       path: '/:tenantPrefix/settings-category-edit',
       name: 'settings-category-create',
       component: SettingsCategoriesEdit,
       beforeEnter: requireValidAdmin,
-      meta: { showMenu: true, showNavbar: true, productPermissions: ['POS_REGISTER', 'LANDING_PAGE'] }
+      meta: { showMenu: true, showNavbar: true, productPermissions: ['POS_REGISTER'] }
+    },
+    {
+      path: '/:tenantPrefix/settings-payment-methods-edit/:id',
+      name: 'settings-payment-method-edit',
+      component: SettingsPaymentMethodsEdit,
+      props: true,
+      beforeEnter: requireValidAdmin,
+      meta: { showMenu: true, showNavbar: true, productPermissions: ['POS_REGISTER'] }
+    },
+    {
+      path: '/:tenantPrefix/settings-payment-methods-edit',
+      name: 'settings-payment-method-create',
+      component: SettingsPaymentMethodsEdit,
+      beforeEnter: requireValidAdmin,
+      meta: { showMenu: true, showNavbar: true, productPermissions: ['POS_REGISTER'] }
     },
     {
       path: '/:tenantPrefix/documentation',
